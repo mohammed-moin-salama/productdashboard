@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="css/bootstrap.min.css" rel="stylesheet" />
+    <link href="https://unpkg.com/boxicons@2.1.2/css/boxicons.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="DataTables/datatables.min.css">
+    <script src="js/Database.js"></script>
+    <link href="Project.css" rel="stylesheet" />
+
+    <script src="js/login.js"></script>
+    <title>login in </title>
+    <style>
+        body {
+            background-color: white;
+            background-image: none;
+            position: relative;
+            height: 100vh;
+            width: 100%;
+        }
+        
+        .section-01 {
+            position: absolute;
+            height: 600px;
+            width: auto;
+            border-radius: 50%;
+            top: 50%;
+            right: 50%;
+            transform: translate(50%, -50%);
+            /*   background: rgb(255, 164, 164);
+            /*  background: linear-gradient(90deg, rgba(255, 164, 164, 0.9951330874146533) 0%, rgba(93, 208, 116, 1) 53%, rgba(0, 30, 247, 1) 100%);
+        */
+        }
+        
+        .login {
+            height: 100vh;
+            width: 100%;
+        }
+        
+        .form {
+            z-index: 1000000;
+            background-color: rgb(255, 255, 255);
+            border-radius: 10px;
+            height: 500px;
+            width: 400px;
+            box-shadow: 5px 5px 16px rgb(0 0 0 /30%), -5px -5px 16px rgb(0 0 0 /30%) !important;
+        }
+        
+        .form .form-floating {
+            width: 100% !important;
+        }
+        
+        video {
+            object-fit: cover;
+            width: 100vw;
+            height: 100vh;
+            position: fixed;
+            top: 0;
+            left: 0;
+        }
+    </style>
+</head>
+
+<body>
+    <video playsinline autoplay muted loop poster="" id="bgvid">
+        <source src="Video/production ID-3677016.mp4" type="video/mp4">
+    </video>
+    <section class="section-01 "></section>
+
+    <section id="section" class=" login d-flex justify-content-center align-items-center">
+        <form id="form" class="form d-flex flex-column justify-content-center  gap-5">
+            <h1 class="text-center h3 pt-5">LOGIN</h1>
+            <div class="form-floating  d-flex justify-content-center px-4 ">
+                <input type="text" required name="user" class="form-control   " placeholder="Username">
+                <label class="px-5">Username</label>
+            </div>
+            <div class="form-floating  d-flex justify-content-center px-4">
+                <input required name="pass" type="password" class="form-control  " placeholder="password">
+                <label class="px-5">Password</label>
+            </div>
+            <div class="px-5 row d-flex  w-100">
+                <input name="btnLogin" type="submit" class="form-control btn btn-dark d-inline-b w-50 p-2 mx-auto" value="Login">
+            </div>
+            <div class="px-5  row d-flex mx-auto ">
+                <button id="btn" class="btn px-5 btn-dark">Add account </button>
+            </div>
+        </form>
+    </section>
+
+
+
+    <section id="newsDiv" class=" d-none login d-flex justify-content-center align-items-center">
+        <form id="frmNews" class="form py-5 d-flex flex-column justify-content-center  gap-5">
+            <h1 class="text-center pt-5 h3">Add</h1>
+            <div class="form-floating  d-flex justify-content-center px-4 ">
+                <input type="text" placeholder="Username" class="form-control" name="id" required>
+
+                <label class="px-5">Username</label>
+            </div>
+            <div class="form-floating  d-flex justify-content-center px-4">
+                <input type="text" class="form-control" name="useradd" placeholder="password" required>
+
+                <label class="px-5">Password</label>
+            </div>
+
+            <div class="col mx-auto">
+                <button type="submit" class="btn btn-primary">Save Data</button>
+            </div>
+        </form>
+    </section>
+    <div id="load-section" class=" position-fixed d-flex top-0 bottom-0 start-0 end-0 flex-column load-nonvisaul align-content-center align-items-center  justify-content-center vh-100">
+        <img src="Video/BGzf.gif" alt="" width="200" />
+        <div class="loader">
+
+            <h1 class="text-white element h1  "></h1>
+
+        </div>
+
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12"></script>
+    <script src="type.js"></script>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="DataTables/datatables.min.js"></script>
+    <script src="product.js"></script>
+
+
+
+
+
+    <script>
+        var use = 1;
+        var pas = 1;
+
+
+
+
+        var list = ['mohammed', 'wesam', 'hamza', 'omar', 'ibrahim', 'tariq', 'zakaria', 'ahmed', 'anas', 'seif',
+            localStorage.getItem(use),
+            localStorage.getItem(use),
+            localStorage.getItem(use),
+            localStorage.getItem(use),
+            localStorage.getItem(use)
+
+        ];
+        var list2 = ['mohammed', 'wesam', 'hamza', 'omar', 'ibrahim', 'tariq', 'zakaria', 'ahmed', 'anas', 'seif', localStorage.getItem(pas),
+            localStorage.getItem(pas),
+            localStorage.getItem(pas),
+            localStorage.getItem(pas),
+            localStorage.getItem(pas)
+
+
+        ];
+        var form = document.getElementById('form');
+        var btnclick = document.getElementById('btn');
+        var frmNews = document.getElementById('frmNews');
+        var newsDiv = document.getElementById('newsDiv');
+        form.addEventListener('submit', login);
+        btnclick.addEventListener('click', btn);
+        frmNews.addEventListener('submit', add);
+
+        function login(event) {
+            if (!form.checkValidity()) {
+                event.preventDefault();
+                event.stopPropagation();
+            } else {
+                form.classList.add('was-validated');
+
+                var id = list.indexOf(form.elements.user.value);
+                var name = list2.indexOf(form.elements.pass.value);
+                if (id == name && id != -1 && name != -1) {
+                    window.location = 'Dashbored.html';
+                    event.preventDefault();
+                    event.stopPropagation();
+                } else {
+                    alert('please inter user again')
+                }
+            }
+
+        }
+
+        function add(event) {
+            if (!frmNews.checkValidity()) {
+                event.preventDefault();
+                event.stopPropagation();
+            }
+            frmNews.classList.add('was-validated');
+            localStorage.setItem(use, frmNews.elements.id.value);
+            use + 1;
+            localStorage.setItem(pas, frmNews.elements.useradd.value);
+            pas + 1;
+
+
+            frmNews.classList.add('d-none');
+            form.classList.add('d-block');
+
+        }
+
+        function btn(event) {
+            section.classList.add('d-none');
+            newsDiv.classList.toggle('d-none');
+            btnclick.classList.toggle('d-none');
+
+        }
+    </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <script src=" js/bootstrap.bundle.min.js "></script>
+</body>
+
+</html>

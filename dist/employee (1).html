@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="Project.css" rel="stylesheet" />
+    <link href="https://unpkg.com/boxicons@2.1.2/css/boxicons.min.css" rel="stylesheet">
+    <link href="css/bootstrap.min.css" rel="stylesheet" />
+    <link href="DataTables/datatables.min.css" rel="stylesheet" />
+    <title>Hello, world!</title>
+    <style>
+        .swal2-cancel {
+            margin-right: 20px !important;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container-lg mt-5 p-3" id="data">
+        <div class="d-flex justify-content-end">
+            <button onclick="addemp()" class=" btn btn-outline-primary d-block my-lg-4 p-2 h me-3" id="add">Add Employee<i class='bx bx-plus '></i></button>
+        </div>
+        <div id="table-emp-content">
+            <table id="example" class="table table-hover table-borderless" width="100%"> </table>
+        </div>
+    </div>
+    <div class="modal fade" tabindex="-1" id="modal">
+        <div class="modal-dialog modal-dialog-centered modal-xl modal-dialog-scrollable modal-fullscreen-lg-down p-0	">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modeltitle">Modal title</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body h-100">
+                    <div class="row row-cols-1 row-cols-sm-2 justify-content-center h-100 ">
+                        <div class="col py-3 py-md-4 d-flex justify-content-center h-100">
+                            <img src="Image/1.png" alt="" class="img-fluid" width="400" id="img1" />
+                        </div>
+                        <div class="col py-3 py-md-4 h-100">
+                            <form action="" name="form1" method='POST' class="form needs-validation " novalidate>
+                                <div class="form-floating">
+                                    <input type="text" required class="form-control d-block my-4 " id="firstname" placeholder="firstname" name="in">
+                                    <label for="firstname" class="text-danger">firstname</label>
+                                </div>
+                                <div class="form-floating">
+                                    <input type="text" required class="form-control d-block my-4 " id="lastname" placeholder="lastname" name="in">
+                                    <label for="lastname" class="text-danger">lastname</label>
+                                </div>
+                                <div class="form-floating">
+                                    <input type="email" required class="form-control d-block my-4 " id="email" placeholder="email" name="in">
+                                    <label for="email" class="text-danger">email</label>
+                                </div>
+                                <div class="form-floating">
+                                    <input type="text" required class="form-control d-block my-4 " id="gender" placeholder="gender" name="in">
+                                    <label for="gender" class="text-danger">gender</label>
+                                </div>
+                                <div class="form-floating">
+                                    <input type="text" required class="form-control d-block my-4 " id="street" placeholder="street" name="in">
+                                    <label for="street" class="text-danger">street</label>
+                                </div>
+                                <div class="form-floating">
+                                    <input pattern="^\d{2}/\d{2}/\d{4}$" type="text" required class="form-control d-block my-4 " id="hiredate" placeholder="hiredate" name="in">
+
+                                    <label for="hiredate" class="text-danger">hiredate</label>
+                                </div>
+                                <div class="form-floating">
+                                    <input pattern="^[1-9]+[0-9]*$" type="text" required class="form-control d-block my-4" id="age" placeholder="age" name="in">
+                                    <label for="price" class="text-danger">age</label>
+                                </div>
+                                <div class="form-floating">
+                                    <input type="text" required class="form-control d-block my-4" id="img" placeholder="Image source" name="in">
+                                    <label for="img" class="text-danger">Image source </label>
+                                </div>
+
+                                <input type="submit" class=" btn btn-outline-primary d-block my-4 p-2 " value="Save" id="saveitem">
+                            </form>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="js/employee.js"></script>
+    <script src="DataTables/datatables.min.js"></script>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://cdn.jsdelivr.net/combine/npm/chart.js@3.7.1/dist/chart.esm.min.js,npm/chart.js@3.7.1/dist/chart.min.js,npm/chart.js@3.7.1,npm/chart.js@3.7.1/dist/helpers.esm.min.js,npm/sweetalert2@11.4.17"></script>
+    <script src="js/bootstrap.bundle.js"></script>
+    <script src="employee.js"></script>
+    <script>
+
+        var tableempcontent1 = document.getElementById('table-emp-content');
+        function displayEmpagain() {
+            tableempcontent1.innerHTML = '';
+          
+            tableempcontent1.innerHTML = `
+            <table id="example" class="table table-hover table-borderless" width="100%"> </table>
+/*<table id="Employee" class="table table-hover table-bordered " width="100%"></table>*/`
+            tableemp()
+        }
+    </script>
+
+
+
+
+
+
+
+
+</body>
+
+</html>

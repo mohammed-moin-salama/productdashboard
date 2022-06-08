@@ -1,0 +1,103 @@
+﻿<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="css/bootstrap.min.css" rel="stylesheet" />
+    <link href="https://unpkg.com/boxicons@2.1.2/css/boxicons.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="DataTables/datatables.min.css">
+    <link href="Project.css" rel="stylesheet" />
+    <script src="js/Database.js"></script>
+
+    <title>Hello, world!</title>
+    <style>
+        .swal2-cancel {
+            margin-right: 20px !important;
+        }
+    </style>
+</head>
+
+
+<body class="p-2">
+
+    <div class="container-lg mt-5 p-3" id="data">
+        <div class="d-flex justify-content-end">
+            <button onclick="addItem()" class=" btn btn-outline-primary d-block my-lg-4 p-2 h me-3" id="add">Add Product<i class='bx bx-plus '></i></button>
+        </div>
+        <div id="table-content">
+
+            <table id="example" class="table table-hover table-borderless" width="100%"> </table>
+        </div>
+    </div>
+
+    <div class="modal fade p-0" tabindex="-1" id="modal">
+        <div class="modal-dialog modal-dialog-centered modal-xl modal-dialog-scrollable modal-fullscreen-lg-down p-0 	">
+
+            <div class="modal-content ">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modeltitle">Modal title</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body h-100 position-relative ">
+                    <div class="blur-section  "></div>
+
+                    <div class="row row-cols-1 row-cols-sm-2 justify-content-center h-100  ">
+                        <div class="col py-3 py-md-4 d-flex justify-content-center h-100 index " style="height:400px !important">
+
+                            <img src="Image/1.png" alt="Product Image" class="img-fluid " width="400" id="img1" />
+                        </div>
+                        <div class="col py-3 py-md-4 h-100 index">
+                            <form action="" name="form" method='POST' class="form needs-validation " novalidate>
+
+                                <div class="form-floating">
+                                    <input type="text" required class="form-control d-block my-4 " id="title" placeholder="Title" name="in">
+                                    <label for="title" class="text-danger">Title</label>
+                                </div>
+                                <div class="form-floating">
+
+                                    <textarea type="text" required class="form-control d-block my-4" rows="4" cols="100" id="description" placeholder="Description" name="in"></textarea>
+                                    <label for="description" class="text-danger">Description</label>
+                                </div>
+                                <div class="form-floating">
+                                    <input type="text" required pattern="^[$]\d+([.]?\d+)?$" class="form-control d-block my-4" id="price" placeholder="Price" name="in">
+                                    <label for="price" class="text-danger">Price</label>
+                                </div>
+                                <div class="form-floating">
+                                    <input type="text" required class="form-control d-block my-4" id="img" placeholder="Image source" name="in">
+                                    <label for="img" class="text-danger">Image source </label>
+                                </div>
+
+                                <input type="submit" class=" btn btn-outline-primary d-block my-4 p-2 d-none " value="Save" id="saveitem" />
+
+                            </form>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="load-section" class=" position-fixed d-flex top-0 bottom-0 start-0 end-0 flex-column load-nonvisaul align-content-center align-items-center  justify-content-center vh-100">
+        <img src="image/BGzf.gif" alt="" width="200" />
+        <div class="loader">
+
+            <h1 class="text-white element h1  "></h1>
+
+        </div>
+
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12"></script>
+    <script src="type.js"></script>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="DataTables/datatables.min.js"></script>
+    <script src="product.js"></script>
+    <script src="js/bootstrap.bundle.min.js"></script>
+
+</body>
+
+</html>
