@@ -1,0 +1,1222 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <meta charset="utf-8" />
+    <title></title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="css/bootstrap.min.css" rel="stylesheet" />
+    <link href="https://unpkg.com/boxicons@2.1.2/css/boxicons.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+    <link rel="stylesheet" href="DataTables/datatables.min.css">
+    <link href="Project.css" rel="stylesheet" />
+    <link href="css/bootstrap.min.css" rel="stylesheet" />
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Ubuntu', sans-serif;
+        }
+        
+         :root {
+            --blue: #287bff;
+            --white: #fff;
+            --gray: #f5f5f5;
+            --black1: #222;
+            --black2: #999;
+        }
+        
+        .active_02 {
+            background-color: var(--white);
+        }
+        
+        .active_02 a {
+            color: var(--blue) !important;
+        }
+        
+        body {
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+        
+        .container {
+            position: relative;
+            width: 100%;
+        }
+        
+        .navigation {
+            position: fixed;
+            width: 300px;
+            height: 100%;
+            background: var(--blue);
+            border-left: 10px solid var(--blue);
+            transition: 0.5s;
+            overflow: hidden;
+        }
+        
+        .active {
+            width: 80px !important;
+        }
+        
+        .active_01 {
+            width: calc(100% - 80px) !important;
+            left: 80px !important;
+            transition: 0.5s;
+        }
+        
+        .navigation ul li {
+            position: relative;
+            width: 100%;
+            list-style: none;
+            border-top-left-radius: 30px;
+            border-bottom-left-radius: 30px;
+        }
+        
+        .navigation ul li:hover:not(:nth-child(2)) {
+            background: var(--white);
+        }
+        
+        .navigation ul li:nth-child(2) {
+            margin-bottom: 40px;
+        }
+        
+        .navigation ul li a {
+            position: relative;
+            display: block;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            text-decoration: none;
+            color: var(--white);
+            z-index: 1000000000000;
+        }
+        
+        .navigation ul li:hover:not(:nth-child(2)) a {
+            color: var(--blue);
+        }
+        
+        .navigation ul li a .icon {
+            position: relative;
+            display: block;
+            min-width: 60px;
+            height: 60px;
+            line-height: 60px;
+            text-align: center;
+        }
+        
+        .navigation ul li a .icon ion-icon {
+            font-size: 1.75em;
+        }
+        
+        .navigation ul li a .title {
+            position: relative;
+            display: block;
+            padding: 0 10px;
+            height: 60px;
+            line-height: 60px;
+            text-align: start;
+            white-space: nowrap;
+        }
+        
+        .navigation ul li:hover:not(:nth-child(2)) a:before,
+        .active_02 a::before,
+        .navigation ul li:hover:not(:nth-child(2)) a:after,
+        .active_02 a::after {
+            content: '';
+            position: absolute;
+            right: 0;
+            width: 50px;
+            height: 50px;
+            background: transparent;
+            border-radius: 50%;
+        }
+        
+        .navigation ul li:hover:not(:nth-child(2)) a:before,
+        .active_02 a::before {
+            box-shadow: 35px 35px 0 10px var(--white);
+            top: -50px;
+        }
+        /*after*/
+        
+        .navigation ul li:hover:not(:nth-child(2)) a:after,
+        .active_02 a::after {
+            box-shadow: 35px -35px 0 10px var(--white);
+            bottom: -50px;
+        }
+        
+        .main {
+            position: absolute;
+            width: calc(100% - 300px);
+            left: 300px;
+            min-height: 100vh;
+            background: var(--white);
+            transition: 0.5s;
+            top: 25px;
+        }
+        
+        #datapro,
+        #data {
+            width: calc(100% - 340px);
+            right: 10px;
+        }
+        
+        .top {
+            z-index: 10;
+            position: fixed;
+            background: var(--white);
+            transition: 0.5s;
+            width: calc(100% - 300px);
+            left: 300px;
+        }
+        
+        .topbar {
+            width: 100%;
+            height: 60px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 10px;
+            transition: 0.5s;
+        }
+        
+        .main img {
+            height: 100px !important;
+        }
+        
+        .toggle {
+            position: relative;
+            top: 0;
+            width: 60px;
+            height: 60px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 2.5em;
+            cursor: pointer;
+        }
+        
+        .search {
+            position: relative;
+            width: 400px;
+            margin: 0 10px;
+        }
+        
+        .search label input {
+            height: 40px;
+            border-radius: 40px;
+            padding: 5px 20px;
+            padding-left: 35px;
+            font-size: 18px;
+            outline: none;
+            border: 1px solid var(--black2);
+        }
+        
+        #i {
+            position: absolute;
+            top: 12px;
+            left: 10px;
+            font-size: 1.2em;
+        }
+        
+        .user {
+            position: relative;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            overflow: hidden;
+            cursor: pointer;
+        }
+        
+        .user img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100% !important;
+            height: 100% !important;
+            display: block;
+            object-fit: cover;
+        }
+        
+        @media screen and (max-width:991px) {
+            .navigation {
+                left: -200px;
+                display: none;
+                z-index: 10000000000000000000000;
+                /* width: 200px !important; */
+            }
+            .active {
+                display: block;
+                left: 0;
+                width: 100% !important;
+            }
+            .not_Active {
+                right: -200%;
+                display: none !important;
+            }
+            .main,
+            .top,
+            #datapro,
+            #data {
+                width: 100%;
+                left: 0;
+                /* left: 200px; */
+                /* width: calc(100% - 200px) !important; */
+            }
+            .active_01 {
+                width: 100%;
+                left: 130% !important;
+                transition: 0.5s;
+                display: none !important;
+                opacity: 0;
+                transform: translateX(-120000px) !important;
+            }
+        }
+        
+        body {
+            background-image: none;
+        }
+        
+        .content {
+            cursor: pointer;
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0px 7px 25px rgb(0 0 0 /8%);
+        }
+        
+        .content:hover {
+            background-color: var(--blue);
+        }
+        
+        .content:hover h1,
+        .content:hover p,
+        .content:hover .material-symbols-outlined {
+            color: var(--white) !important;
+        }
+        
+        .content .material-symbols-outlined,
+        .content p {
+            color: var(--black2) !important;
+        }
+        
+        .content h1 {
+            color: var(--blue);
+            font-weight: 500;
+            font-size: 2.5em;
+        }
+        
+        .content p {
+            font-size: 1.1em;
+            margin-top: 5px;
+        }
+        
+        .chart {
+            border-radius: 20px;
+            box-shadow: 0px 7px 25px rgb(0 0 0 /8%);
+            box-shadow: 0px 7px 25px rgb(0 0 0 /8%);
+        }
+        
+        .material-symbols-outlined {
+            font-size: 3.5em;
+        }
+        
+        table {
+            width: 100% !important;
+        }
+        
+        .swal2-cancel {
+            margin-right: 20px !important;
+        }
+        .modal-body{
+            background-image:none !important;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container-fluid p-0">
+        <div class="navigation  position-fixed">
+            <ul class="position-absolute top-0 start-0 w-100 p-0">
+                <div class="toggle d-lg-none">
+                    <i class='bx bx-menu menu'></i>
+                </div>
+                <li class="d-flex " style="pointer-events:none">
+                    <a href="#" class="h4">
+                        <span class="icon"><i class='bx bxl-apple'></i></span>
+                        <span class="title">Brand Name</span>
+                    </a>
+                </li>
+                <li class="active_02" id="Dashboard">
+                    <a href="#">
+                        <span class="icon"><i class='bx bx-home-alt-2'></i></span>
+                        <span class="title">Dashboard</span>
+                    </a>
+                </li>
+                <li id="Employees">
+                    <a href="#">
+                        <span class="icon"><i class='bx bx-male-female'></i></span>
+                        <span class="title">Employee</span>
+                    </a>
+                </li>
+                <li id="Products">
+                    <a href="#">
+                        <span class="icon"><i class='bx bxl-product-hunt'></i></span>
+                        <span class="title">Products</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="login.html">
+                        <span class="icon"><i class='bx bx-log-out'></i></span>
+                        <span class="title">Sign Out</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <div class="top">
+            <div class="topbar">
+                <div class="toggle">
+                    <i class='bx bx-menu menu'></i>
+                </div>
+
+                <div class="search">
+                    <label class="position-relative w-100">
+                        <input type="text" name="name" value="" class="w-100  " placeholder="search here" />
+                        <i id="i" class='bx bx-search-alt-2'></i>
+                    </label>
+                </div>
+
+                <div class="user">
+                    <img src="Video/Modal.jpg" alt="Alternate Text" />
+                </div>
+            </div>
+        </div>
+        <div class="main pt-5 mt-5" data-id="Dashboard">
+
+            <div class="p-3 px-md-5 ">
+                <div class="row row-cols-1   row-cols-md-2  row-cols-xl-4">
+                    <div class="col p-2">
+                        <div class="content  d-flex  justify-content-between">
+                            <div>
+                                <h1 class="">
+                                    1,504
+                                </h1>
+                                <p class="">
+                                    Daily Views
+                                </p>
+                            </div>
+                            <span class="material-symbols-outlined  d-flex justify-content-center align-items-center ">
+                                visibility
+                            </span>
+                        </div>
+                    </div>
+                    <div class="col p-2">
+                        <div class="content  d-flex  justify-content-between">
+                            <div>
+                                <h1 class="">
+                                    80
+                                </h1>
+                                <p class="">
+                                    Sales
+                                </p>
+                            </div>
+                            <span class="material-symbols-outlined d-flex justify-content-center align-items-center ">
+                                shopping_cart
+                            </span>
+                        </div>
+                    </div>
+                    <div class="col p-2">
+                        <div class="content  d-flex  justify-content-between">
+                            <div>
+                                <h1 class="">
+                                    284
+                                </h1>
+                                <p class="">
+                                    Comments
+                                </p>
+                            </div>
+                            <span class="material-symbols-outlined d-flex justify-content-center align-items-center ">
+                                comment
+                            </span>
+                        </div>
+                    </div>
+                    <div class="col p-2">
+                        <div class="content  d-flex  justify-content-between">
+                            <div>
+                                <h1 class="">
+                                    $7.842
+                                </h1>
+                                <p class="">
+                                    Earning
+                                </p>
+                            </div>
+                            <span class="material-symbols-outlined d-flex justify-content-center align-items-center ">
+                                payments
+
+                            </span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row row row-cols-1  row-cols-lg-2  ">
+                    <div class="col p-2">
+                        <div class="chart  d-flex  justify-content-between">
+                            <canvas id="myChart" class="p-2 h-100" height="400" width="400"></canvas>
+                        </div>
+                    </div>
+                    <div class="col p-2">
+                        <div class="chart  d-flex  justify-content-between">
+                            <canvas id="myChart1" class="p-2 h-100" height="400" width="400"></canvas>
+
+                        </div>
+                    </div>
+                    <div class="col p-2">
+                        <div class="chart  d-flex  justify-content-between">
+                            <canvas id="myChart2" class="p-2 h-100" height="400" width="400"></canvas>
+
+                        </div>
+                    </div>
+                    <div class="col p-2">
+                        <div class="chart  d-flex  justify-content-between">
+                            <canvas id="myChart3" class="p-2 h-100" height="400" width="400"></canvas>
+
+                        </div>
+                    </div>
+                </div>
+
+
+
+
+
+                <div id="load-section" class=" position-fixed  d-none top-0 bottom-0 start-0 end-0 flex-column load-nonvisaul align-content-center align-items-center  justify-content-center vh-100">
+                    <img src="Video/BGzf.gif" alt="" width="200" />
+                    <div class="loader">
+                        <h1 class="text-white element h1  "></h1>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="container-lg  p-3 pt-5 mt-5 main d-none not_Active " id="data" data-id="Employees">
+            <div class="d-flex justify-content-end">
+                <button onclick="addemp()" class=" btn btn-outline-primary d-block my-lg-4 p-2 h me-3" id="add">Add Employee<i class='bx bx-plus '></i></button>
+            </div>
+            <div id="tableempcontent">
+                <table id="Employee" class="table table-hover table-borderless" width="100%"> </table>
+            </div>
+        </div>
+
+        <div class="container-lg  p-3 main d-none pt-5 mt-5 not_Active " id="datapro" data-id="Products">
+            <div class="d-flex justify-content-end">
+                <button onclick="addItem()" class=" btn btn-outline-primary d-block my-lg-4 p-2 h me-3" id="addproduct">Add Product<i class='bx bx-plus '></i></button>
+            </div>
+            <div id="table-prod-content">
+                <table id="product" class="table table-hover table-borderless" width="100%"> </table>
+            </div>
+        </div>
+
+    </div>
+
+
+    <div class="modal fade p-0" tabindex="-1" id="Prodmodal">
+        <div class="modal-dialog modal-dialog-centered modal-xl modal-dialog-scrollable modal-fullscreen-lg-down p-0 	">
+
+            <div class="modal-content ">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modelProtitle">Modal title</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body h-100 position-relative ">
+
+                    <div class="row row-cols-1 row-cols-sm-2 justify-content-center h-100  ">
+                        <div class="col py-3 py-md-4 d-flex justify-content-center h-100 index " style="height:400px !important">
+
+                            <img src="Image/1.png" alt="Product Image" class="img-fluid " width="400" id="imgprod" />
+                        </div>
+                        <div class="col py-3 py-md-4 h-100 index">
+                            <form action="" name="form" method='POST' class="form needs-validation " novalidate>
+
+                                <div class="form-floating">
+                                    <input type="text" required class="form-control d-block my-4 " id="title" placeholder="Title" name="inproduct">
+                                    <label for="title" class="text-danger">Title</label>
+                                </div>
+                                <div class="form-floating">
+
+                                    <textarea type="text" required class="form-control d-block my-4" rows="4" cols="100" id="description" placeholder="Description" name="inproduct"></textarea>
+                                    <label for="description" class="text-danger">Description</label>
+                                </div>
+                                <div class="form-floating">
+                                    <input type="text" required pattern="^[$]\d+([.]?\d+)?$" class="form-control d-block my-4" id="price" placeholder="Price" name="inproduct">
+                                    <label for="price" class="text-danger">Price</label>
+                                </div>
+                                <div class="form-floating">
+                                    <input type="text" required class="form-control d-block my-4" id="img" placeholder="Image source" name="inproduct">
+                                    <label for="img" class="text-danger">Image source </label>
+                                </div>
+
+
+                                <input type="submit" class=" btn btn-outline-primary d-block my-4 p-2 d-none " value="Save Changes" id="saveProduct" />
+                            </form>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade  p-0" tabindex="-1" id="employeeModal">
+        <div class="modal-dialog modal-dialog-centered modal-xl modal-dialog-scrollable modal-fullscreen-lg-down p-0	">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modalEmpTitle">Modal title</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body h-100">
+                    <div class="row row-cols-1 row-cols-sm-2 justify-content-center h-100 ">
+                        <div class="col py-3 py-md-4 d-flex justify-content-center h-100">
+                            <img src="Image/1.png" alt="" class="img-fluid" width="400" id="img1" />
+                        </div>
+                        <div class="col py-3 py-md-4 h-100">
+                            <form action="" name="form1" method='POST' class="form needs-validation " novalidate>
+                                <div class="d-flex row justify-content-around">
+                                    <div class="form-floating col-6">
+                                        <input type="text" required class="form-control d-block my-4 " id="firstname" placeholder="firstname" name="in">
+                                        <label style="top: 20% !important; left: 5% !important;" for="firstname" class="text-danger">firstname</label>
+                                        <div class="invalid-feedback">
+                                            Please Enter a firstname.
+                                        </div>
+                                        <div class="valid-feedback">
+                                            Looks good!
+                                        </div>
+                                    </div>
+                                    <div class="form-floating col-6">
+                                        <input type="text" required class="form-control d-block my-4 " id="lastname" placeholder="lastname" name="in">
+                                        <label style="top: 20% !important; left: 5% !important;" for="lastname" class="text-danger">lastname</label>
+                                        <div class="invalid-feedback">
+                                            Please Enter a lastname.
+                                        </div>
+                                        <div class="valid-feedback">
+                                            Looks good!
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="d-flex row justify-content-around">
+                                    <div class="form-floating col-6">
+                                        <input type="email" required class="form-control d-block my-4 " id="email" placeholder="email" name="in">
+                                        <label style="top: 20% !important; left: 5% !important;" for="email" class="text-danger">email</label>
+                                    
+                                        <div class="invalid-feedback">
+                                            Please Enter a email.
+                                        </div>
+                                        <div class="valid-feedback">
+                                            Looks good!
+                                        </div>
+                                    </div>
+                                    <div class="form-floating col-6">
+                                        <input type="text" required class="form-control d-block my-4 " id="gender" placeholder="gender" name="in">
+                                        <label style="top: 20% !important; left: 5% !important;" for="gender" class="text-danger">gender</label>
+                                        <div class="invalid-feedback">
+                                            Please Enter a gender.
+                                        </div>
+                                        <div class="valid-feedback">
+                                            Looks good!
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="d-flex row justify-content-around">
+
+
+                                    <div class="form-floating col-6">
+                                        <input type="text" required class="form-control d-block my-4 " id="street" placeholder="street" name="in">
+                                        <label style="top: 20% !important; left: 5% !important;" for="street" class="text-danger">street</label>
+                                        <div class="invalid-feedback">
+                                            Please Enter a street.
+                                        </div>
+                                        <div class="valid-feedback">
+                                            Looks good!
+                                        </div>
+                                    </div>
+                                    <div class="form-floating col-6">
+                                        <input pattern="^\d{2}/\d{2}/\d{4}$" type="text" required class="form-control d-block my-4 " id="hiredate" placeholder="hiredate" name="in">
+
+                                        <label style="top: 20% !important; left: 5% !important;" for="hiredate" class="text-danger">hiredate</label>
+                                        <div class="invalid-feedback">
+                                            Please Enter a hiredate as 00/00/0000.
+                                        </div>
+                                        <div class="valid-feedback">
+                                            Looks good!
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="d-flex row justify-content-around">
+
+                                    <div class="form-floating col-6">
+                                        <input pattern="^[1-9]+[0-9]*$" type="text" required class="form-control d-block my-4" id="age" placeholder="age" name="in">
+                                        <label style="top: 20% !important; left: 5% !important;" for="price" class="text-danger">age</label>
+                                        <div class="invalid-feedback">
+                                            Please Enter a age.
+                                        </div>
+                                        <div class="valid-feedback">
+                                            Looks good!
+                                        </div>
+                                    </div>
+
+                                    <div class="form-floating col-6">
+                                        <input type="text" required class="form-control d-block my-4" id="img" placeholder="Image source" name="in">
+                                        <label style="top: 20% !important; left: 5% !important;" for="img" class="text-danger">Image source </label>
+                                        <div class="invalid-feedback">
+                                            Please Enter Image source
+                                        </div>
+                                        <div class="valid-feedback">
+                                            Looks good!
+                                        </div>
+                                    </div>
+
+                                </div>
+
+
+
+                                <input type="submit" class="   btn btn-outline-primary d-block my-4 p-2 " value="Save" id="saveitem">
+                            </form>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="Charts.js"></script>
+    <script src="js/employee.js"></script>
+    <script src="DataTables/datatables.min.js"></script>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://cdn.jsdelivr.net/combine/npm/chart.js@3.7.1/dist/chart.esm.min.js,npm/chart.js@3.7.1/dist/chart.min.js,npm/chart.js@3.7.1,npm/chart.js@3.7.1/dist/helpers.esm.min.js,npm/sweetalert2@11.4.17"></script>
+    <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12"></script>
+    <script src="type.js"></script>
+    <script src="js/Database.js"></script>
+    `
+    <script>
+        let toggle = document.querySelectorAll('.toggle');
+        let navigation = document.querySelectorAll('.navigation');
+        let main = document.querySelectorAll('.main');
+        let menu = document.querySelectorAll('.menu');
+        let tp = document.querySelectorAll('.top');
+        menu[0].addEventListener('click', m)
+        menu[1].addEventListener('click', m)
+
+        function m() {
+
+            navigation[0].classList.toggle('active');
+            for (var i = 0; i < main.length; i++) {
+                main[i].classList.toggle('active_01');
+                main[i].classList.toggle('d-none');
+            }
+            tp[0].classList.toggle('active_01');
+        }
+
+        let navigationList = document.querySelectorAll('.navigation ul li');
+        for (let index = 0; index < navigationList.length; index++) {
+            navigationList[index].addEventListener('click', () => {
+                navigation[0].classList.remove('active');
+                main[0].classList.add('d-none');
+                for (var i = 0; i < main.length; i++) {
+                    main[i].classList.remove('active_01');
+                    main[i].classList.remove('d-none');
+                }
+                tp[0].classList.remove('active_01');
+                var prop = navigationList[index].getAttribute('id');
+                var prop1 = navigationList[index].getAttribute('data-id');
+                for (let i = 0; i < main.length; i++) {
+                    var is = i + 1;
+                    var prop1 = main[i].getAttribute('data-id');
+                    if (prop1 == prop) {
+                        navigationList[is].classList.add('active_02');
+                        main[i].classList.remove('not_Active')
+                    } else {
+                        navigationList[is].classList.remove('active_02');
+
+                        main[i].classList.add('not_Active')
+                    }
+                }
+            })
+        }
+
+
+        tableemp()
+
+        function tableemp() {
+            $('#Employee').DataTable({
+                lengthMenu: [5, 10, 15, 20, 25, 30, 35, 40, 45, 100],
+                scrollX: 1000,
+                data: employee,
+                columns: [{
+                    title: 'id',
+                    data: 'id'
+                }, {
+                    title: 'first-name',
+                    data: 'first_name'
+                }, {
+                    title: 'last-name.',
+                    data: 'last_name'
+                }, {
+                    title: 'email',
+                    data: 'email'
+                }, {
+                    title: 'gender',
+                    data: 'gender'
+                }, {
+                    title: 'Prosss',
+                    data: 'id',
+                    render: function(data, type, row) {
+                        return `
+                            <div class="d-flex contant text-center justify-content-center">
+                            <div class="d-flex flex-column "> <button href="# " class="btn view-btn " onclick="viewEmp(${data})" data-bs-toggle="tooltip" data-bs-placement="top" title="View"><i class="bx bx-show h5 "></i></button>
+                            </div>
+                            <div class="d-flex flex-column "> <button href="# " class="btn edit-btn" onclick=" editEmp(${data})" data-bs-toggle="tooltip" data-bs-placement="top" title="Edit"><i class="bx bx-edit h5"></i></button>
+                            </div>
+                            <div class="d-flex flex-column "> <button href="# " class="btn delete-btn " onclick="deleteEmp(${data})"data-bs-toggle="tooltip" data-bs-placement="top" title="Delete"><i class="bx bx-trash h5"></i></button>
+
+                            </div></div>
+                        `;
+                    },
+                }],
+            });
+        }
+
+
+        var modalEmpTitle = document.getElementById('modalEmpTitle');
+        var employeeModal = document.getElementById('employeeModal');
+        var tableempcontent1 = document.getElementById('tableempcontent');
+        var form1 = document.form1;
+        var img1 = document.getElementById('img1');
+        var add = document.getElementById('add');
+        var saveitem = document.getElementById('saveitem');
+
+        function setValues_ForEmp(element) {
+            img1.src = element[0].img;
+            form1.elements.in[0].value = element[0].first_name;
+            form1.elements.in[1].value = element[0].last_name;
+            form1.elements.in[2].value = element[0].email;
+            form1.elements.in[3].value = element[0].gender;
+            form1.elements.in[4].value = element[0].street;
+            form1.elements.in[5].value = element[0].hire_date;
+            form1.elements.in[6].value = element[0].age;
+            form1.elements.in[7].value = img1.src;
+
+        }
+
+        function showEmpMenu() {
+            var myModal = new bootstrap.Modal(employeeModal, {
+                keyboard: true
+            })
+            myModal.show(true)
+        }
+
+        function viewEmp(id) {
+
+            saveitem.classList.add('d-none');
+            form1.parentElement.previousElementSibling.classList.remove('d-none')
+            for (let index = 0; index < form1.elements.in.length; index++) {
+                form1.elements.in[index].setAttribute('readonly', '')
+            }
+            modalEmpTitle.textContent = "View Product";
+            var element = employee.filter(function(Element) {
+                return Element.id == id
+            })
+
+            setValues_ForEmp(element)
+            showEmpMenu();
+
+        }
+
+        function displayEmpagain() {
+            tableempcontent1.innerHTML = '';
+            tableempcontent1.innerHTML = `<table id="Employee" class="table table-hover table-borderless " width="100%"></table>`
+            tableemp()
+        }
+
+        function deleteEmp(id) {
+
+            for (let index = 0; index < employee.length; index++) {
+                if (employee[index].id == id) {
+                    const swalWithBootstrapButtons = Swal.mixin({
+                        customClass: {
+                            confirmButton: 'btn btn-success',
+                            cancelButton: 'btn btn-danger'
+                        },
+                        buttonsStyling: false
+                    })
+                    swalWithBootstrapButtons.fire({
+                        title: 'Are you sure?',
+                        text: "You won't be able to revert this!",
+                        icon: 'warning',
+                        showCancelButton: true,
+                        cancelButtonText: 'No, cancel!',
+                        confirmButtonText: 'Yes, delete it!',
+                        reverseButtons: true
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            employee.splice(index, 1)
+                            displayEmpagain()
+                            swalWithBootstrapButtons.fire('Deleted!', 'Your file has been deleted.', 'success')
+                        } else if (result.dismiss === Swal.DismissReason.cancel) {
+                            swalWithBootstrapButtons.fire('Cancelled', 'Opertion not Complite', 'error')
+                        }
+                    })
+
+                }
+            }
+        }
+
+        function addemp() {
+            saveitem.removeAttribute('data-prossing')
+            saveitem.setAttribute('data-prossing', "add")
+            form1.classList.remove('was-validated')
+            modalEmpTitle.textContent = "Add";
+            showEmpMenu();
+            for (let index = 0; index < form1.elements.in.length; index++) {
+                form1.elements.in[index].removeAttribute('readonly')
+                form1.elements.in[index].value = ''
+                img1.src = ''
+                form1.parentElement.previousElementSibling.classList.add('d-none')
+            };
+
+        }
+
+
+        function AddEmp_01() {
+            for (let index = 0; index < employee.length; index++) {
+                var id = Math.floor((Math.random() * 1000) + 1);
+                if (id != employee[index].id) {
+
+                    break;
+                }
+            }
+            var i = 0;
+            for (let index = 0; index < form1.elements.in.length; index++) {
+                if (form1.elements.in[index].value > 0) {
+                    i = 1;
+                }
+            }
+            if (i == 1) {
+
+                employee.push({
+                    "id": id,
+                    "first_name": form1.elements.in[0].value,
+                    "last_name": form1.elements.in[1].value,
+                    "Image": form1.elements.in[7].value,
+                    "email": form1.elements.in[2].value,
+                    "gender": form1.elements.in[3].value,
+                    "street": form1.elements.in[4].value,
+                    "age": form1.elements.in[6].value,
+                    "hire_date": form1.elements.in[5].value
+
+                });
+                displayEmpagain()
+            }
+        }
+
+        form1.addEventListener('submit', function(event) {
+            event.preventDefault()
+            event.stopPropagation()
+
+            form1.classList.add('was-validated')
+            if (form1.checkValidity()) {
+                Swal.fire({
+                    title: 'Do you want to save the changes?',
+                    showDenyButton: true,
+                    showCancelButton: true,
+                    confirmButtonText: 'Save',
+                    denyButtonText: `Don't save`,
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        if (saveitem.getAttribute('data-prossing') == 'add') {
+                            AddEmp_01();
+                            Swal.fire('Added!', '', 'success')
+                        } else {
+                            editingEmp();
+                            Swal.fire('Changes are saved!', '', 'success')
+                        }
+                        $(employeeModal).modal('toggle');
+
+                    } else if (result.isDenied) {
+                        Swal.fire('Opertion not Complite', '', 'error')
+                    }
+                })
+            }
+
+        }, false)
+
+
+
+        function editingEmp() {
+            form1.classList.remove('was-validated')
+            var id = saveitem.getAttribute('data-id');
+            var element = employee.filter(function(Element) {
+                return Element.id == id
+            })
+            var a = employee.indexOf(element[0])
+
+            employee[a].first_name = form1.elements.in[0].value;
+            employee[a].last_name = form1.elements.in[1].value;
+            employee[a].email = form1.elements.in[2].value;
+            employee[a].street = form1.elements.in[4].value;
+            employee[a].age = form1.elements.in[6].value;
+            employee[a].hire_date = form1.elements.in[5].value;
+            employee[a].gender = form1.elements.in[3].value;
+            employee[a].Image = form1.elements.in[7].value;
+            displayEmpagain()
+
+        }
+
+        function editEmp(id) {
+            saveitem.removeAttribute('data-prossing')
+            saveitem.setAttribute('data-prossing', "edit")
+            saveitem.setAttribute('data-id', id)
+
+            saveitem.classList.remove('d-none')
+            modalEmpTitle.textContent = "Edit";
+            var element = employee.filter(function(Element) {
+                return Element.id == id
+            })
+            for (let index = 0; index < form1.elements.in.length; index++) {
+                form1.elements.in[index].removeAttribute('readonly')
+            }
+            setValues_ForEmp(element)
+
+
+            showEmpMenu()
+        }
+
+
+
+
+
+
+        table()
+
+        function table() {
+            $('#product').DataTable({
+                lengthMenu: [5, 10, 15, 20, 25, 30, 35, 40, 45, 100],
+                scrollX: 1000,
+                data: data,
+                columns: [{
+                    title: 'id',
+                    data: 'id'
+                }, {
+                    title: 'Title',
+                    data: 'Title'
+                }, {
+                    title: 'price.',
+                    data: 'price'
+                }, {
+                    title: 'Prosss',
+                    data: 'id',
+                    render: function(data, type, row) {
+                        return `<div class="d-flex contant text-center justify-content-center">
+                        <div class="d-flex flex-column "> <button href="# " class="btn view-btn " onclick="view(${data})" data-bs-toggle="tooltip" data-bs-placement="top" title="View"><i class="bx bx-show h5 "></i></button>
+                        </div>
+                        <div class="d-flex flex-column "> <button href="# " class="btn edit-btn " onclick="edit(${data})" data-bs-toggle="tooltip" data-bs-placement="top" title="Edit"><i class="bx bx-edit h5"></i></button>
+                        </div>
+                        <div class="d-flex flex-column "> <button href="# " class="btn delete-btn " onclick="deleteitem(${data})"data-bs-toggle="tooltip" data-bs-placement="top" title="Delete"><i class="bx bx-trash h5"></i></button>
+
+                        </div></div>`;
+                    },
+                }],
+            });
+        }
+        //var addproduct = document.getElementById('addproduct');
+        //var productTable = document.getElementById('productTable');
+
+
+        var modelProtitle = document.getElementById('modelProtitle');
+        var Prodmodal = document.getElementById('Prodmodal');
+        var tableprodcontent = document.getElementById('table-prod-content');
+        var form = document.form;
+        var imgprod = document.getElementById('imgprod');
+        var saveProduct = document.getElementById('saveProduct');
+
+
+        function setvalues(element) {
+            imgprod.src = element[0].Image;
+            form.elements.inproduct[1].value = element[0].Descritpion;
+            form.elements.inproduct[2].value = element[0].price;
+            form.elements.inproduct[0].value = element[0].Title;
+            form.elements.inproduct[3].value = imgprod.src;
+
+        }
+
+        function showMenu() {
+            var myModal1 = new bootstrap.Modal(Prodmodal, {
+                keyboard: true
+            })
+            myModal1.show(true)
+        }
+
+        function view(id) {
+            saveProduct.classList.add('d-none');
+            form.parentElement.previousElementSibling.classList.remove('d-none')
+            for (let index = 0; index < form.elements.inproduct.length; index++) {
+                form.elements.inproduct[index].setAttribute('readonly', '')
+            }
+            modelProtitle.textContent = "View Product";
+            var element = data.filter(function(Element) {
+                return Element.id == id
+            })
+            setvalues(element)
+            showMenu();
+        }
+
+        function displayproagain() {
+            tableprodcontent.innerHTML = '';
+            tableprodcontent.innerHTML = `<table id="product" class="table table-hover table-borderless" width="100%"></table>`
+            table()
+        }
+
+        function deleteitem(id) {
+            for (let index = 0; index < data.length; index++) {
+                if (data[index].id == id) {
+                    const swalWithBootstrapButtons = Swal.mixin({
+                        customClass: {
+                            confirmButton: 'btn btn-success',
+                            cancelButton: 'btn btn-danger'
+                        },
+                        buttonsStyling: false
+                    })
+                    swalWithBootstrapButtons.fire({
+                        title: 'Are you sure?',
+                        text: "You won't be able to revert this!",
+                        icon: 'warning',
+                        showCancelButton: true,
+                        cancelButtonText: 'No, cancel!',
+                        confirmButtonText: 'Yes, delete it!',
+                        reverseButtons: true
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            data.splice(index, 1)
+                            displayproagain()
+                            swalWithBootstrapButtons.fire('Deleted!', 'Your file has been deleted.', 'success')
+                        } else if (result.dismiss === Swal.DismissReason.cancel) {
+                            swalWithBootstrapButtons.fire('Cancelled', 'Opertion not Complite', 'error')
+                        }
+                    })
+
+                }
+            }
+        }
+
+        function addItem() {
+            saveProduct.removeAttribute('data-prossing')
+            saveProduct.setAttribute('data-prossing', "add")
+            saveProduct.classList.remove('d-none');
+            modelProtitle.textContent = "Add";
+            form.classList.remove('was-validated')
+            showMenu();
+            for (let index = 0; index < form.elements.inproduct.length; index++) {
+                form.elements.inproduct[index].removeAttribute('readonly')
+                form.elements.inproduct[index].value = ''
+                imgprod.src = ''
+                form.parentElement.previousElementSibling.classList.add('d-none')
+            };
+        }
+
+        function addpro() {
+            for (let index = 0; index < data.length; index++) {
+                var identity = Math.floor((Math.random() * 1000) + 1);
+                if (identity != data[index].id) {
+                    break;
+                }
+            }
+            var i = 0;
+            for (let index = 0; index < form.elements.inproduct.length; index++) {
+                if (form.elements.inproduct[index].value.length > 0) {
+                    i = 1;
+                }
+            }
+            if (i == 1) {
+                data.push({
+                    "id": identity,
+                    "Descritpion": form.elements.inproduct[1].value,
+                    "Title": form.elements.inproduct[0].value,
+                    "Image": form.elements.inproduct[3].value,
+                    "price": form.elements.inproduct[2].value
+                });
+                saveProduct.classList.remove('d-none');
+                saveProduct.classList.remove('d-block');
+                displayproagain()
+            }
+        }
+
+        function edit(id) {
+            saveProduct.removeAttribute('data-prossing')
+            saveProduct.setAttribute('data-prossing', "edit")
+            saveProduct.setAttribute('data-id', id)
+            saveProduct.classList.remove('d-none');
+            modelProtitle.textContent = "Edit";
+            var element = data.filter(function(Element) {
+                return Element.id == id
+            })
+            for (let index = 0; index < form.elements.inproduct.length; index++) {
+                form.elements.inproduct[index].removeAttribute('readonly')
+            }
+            setvalues(element)
+            showMenu()
+        }
+
+        function editing() {
+            var proid = saveProduct.getAttribute('data-id');
+            var element = data.filter(function(Element) {
+                return Element.id == proid
+            })
+            var a = data.indexOf(element[0])
+            data[a].Title = form.elements.inproduct[0].value;
+            data[a].Descritpion = form.elements.inproduct[1].value;
+            data[a].price = form.elements.inproduct[2].value;
+            data[a].Image = form.elements.inproduct[3].value;
+            displayproagain()
+        }
+
+
+        form.addEventListener('submit', function(event) {
+            event.preventDefault()
+            event.stopPropagation()
+
+            form.classList.add('was-validated')
+            if (form.checkValidity()) {
+                Swal.fire({
+                    title: 'Do you want to save the changes?',
+                    showDenyButton: true,
+                    showCancelButton: true,
+                    confirmButtonText: 'Save',
+                    denyButtonText: `Don't save`,
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        if (saveProduct.getAttribute('data-prossing') == 'add') {
+                            addpro();
+                            Swal.fire('Add!', '', 'success')
+                        } else if (saveProduct.getAttribute('data-prossing') == 'edit') {
+                            editing();
+                            Swal.fire('Editing!', '', 'success')
+                        }
+                        $(Prodmodal).modal('toggle');
+                    } else if (result.isDenied) {
+                        Swal.fire('Opertion not Complite', '', 'info')
+                    }
+                })
+            }
+        }, false)
+    </script>
+
+
+    <script src="js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>
